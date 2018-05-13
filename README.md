@@ -1,10 +1,10 @@
-[![logo](https://raw.githubusercontent.com/dperson/samba/master/logo.jpg)](https://www.samba.org)
+[![logo](https://raw.githubusercontent.com/jborza/samba/master/logo.jpg)](https://www.samba.org)
 
-## Why this fork
+## Why this fork & credits
 
 I wanted to be able to run this Samba container with a bind volume under Windows, and it seems we can't change the permissions to achieve a read/write share ([see this issue](https://github.com/docker/for-win/issues/497)).
 
-`smbuser` is replaced with root, everything is still the same as in the great original [dperson/samba](https://github.com/dperson/samba) container.
+`smbuser` is replaced with root, everything is still the same as in the great original [dperson/samba](https://github.com/dperson/samba) container. I would strongly suggest to give the original image a try: he is doing a good job there!
 
 # Samba
 
@@ -22,17 +22,23 @@ By default there are no shares configured, additional ones can be added.
 
 ## Hosting a Samba instance
 
-    sudo docker run -it -p 139:139 -p 445:445 -d dperson/samba
+    sudo docker run -it -p 139:139 -p 445:445 -d jborza/samba-root
 
 OR set local storage:
 
     sudo docker run -it --name samba -p 139:139 -p 445:445 \
                 -v /path/to/directory:/mount \
-                -d dperson/samba
+                -d jborza/samba-root
+
+Windows:
+
+    docker run -it --name samba -p 4139:139 -p 4445:445 \
+        -v c:/temp/smb:/mount \
+        -d jborza/samba-root
 
 ## Configuration
 
-    sudo docker run -it --rm dperson/samba -h
+    sudo docker run -it --rm jborza/samba-root -h
     Usage: samba.sh [-opt] [command]
     Options (fields in '[]' are optional, '<>' are required):
         -h          This help
@@ -99,11 +105,11 @@ Any of the commands can be run at creation with `docker run` or later with
 
 ### Setting the Timezone
 
-    sudo docker run -it -e TZ=EST5EDT -p 139:139 -p 445:445 -d dperson/samba
+    sudo docker run -it -e TZ=EST5EDT -p 139:139 -p 445:445 -d jborza/samba-root
 
 ### Start an instance creating users and shares:
 
-    sudo docker run -it -p 139:139 -p 445:445 -d dperson/samba \
+    sudo docker run -it -p 139:139 -p 445:445 -d jborza/samba-root \
                 -u "example1;badpass" \
                 -u "example2;badpass" \
                 -s "public;/share" \
@@ -116,4 +122,4 @@ Any of the commands can be run at creation with `docker run` or later with
 ## Issues
 
 If you have any problems with or questions about this image, please contact me
-through a [GitHub issue](https://github.com/dperson/samba/issues).
+through a [GitHub issue](https://github.com/jborza/samba/issues).
