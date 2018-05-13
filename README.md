@@ -1,5 +1,11 @@
 [![logo](https://raw.githubusercontent.com/dperson/samba/master/logo.jpg)](https://www.samba.org)
 
+## Why this fork
+
+I wanted to be able to run this Samba container with a bind volume under Windows, and it seems we can't change the permissions to achieve a read/write share ([see this issue](https://github.com/docker/for-win/issues/497)).
+
+`smbuser` is replaced with root, everything is still the same as in the great original [dperson/samba](https://github.com/dperson/samba) container.
+
 # Samba
 
 Samba docker container
