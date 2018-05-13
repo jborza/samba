@@ -62,7 +62,7 @@ import() { local file="$1" name id
 # Return: result
 perms() { local i file=/etc/samba/smb.conf
     for i in $(awk -F ' = ' '/   path = / {print $2}' $file); do
-        chown -Rh smbuser. $i
+        chown -Rh root. $i
         find $i -type d ! -perm 775 -exec chmod 775 {} \;
         find $i -type f ! -perm 0664 -exec chmod 0664 {} \;
     done
@@ -199,7 +199,7 @@ The 'command' (if provided and valid) will be run instead of samba
     exit $RC
 }
 
-[[ "${USERID:-""}" =~ ^[0-9]+$ ]] && usermod -u $USERID -o smbuser
+[[ "${USERID:-""}" =~ ^[0-9]+$ ]] && usermod -u $USERID -o root
 [[ "${GROUPID:-""}" =~ ^[0-9]+$ ]] && groupmod -g $GROUPID -o users
 
 while getopts ":hc:g:i:nprs:Su:Ww:" opt; do

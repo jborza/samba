@@ -1,10 +1,9 @@
 FROM alpine
-MAINTAINER David Personette <dperson@gmail.com>
+LABEL MAINTAINER jborza
 
 # Install samba
 RUN apk --no-cache --no-progress upgrade && \
     apk --no-cache --no-progress add bash samba shadow tini && \
-    adduser -D -G users -H -S -g 'Samba User' -h /tmp smbuser && \
     file="/etc/samba/smb.conf" && \
     sed -i 's|^;* *\(log file = \).*|   \1/dev/stdout|' $file && \
     sed -i 's|^;* *\(load printers = \).*|   \1no|' $file && \
@@ -22,7 +21,7 @@ RUN apk --no-cache --no-progress upgrade && \
     echo '   force create mode = 0664' >>$file && \
     echo '   directory mask = 0775' >>$file && \
     echo '   force directory mode = 0775' >>$file && \
-    echo '   force user = smbuser' >>$file && \
+    echo '   force user = root' >>$file && \
     echo '   force group = users' >>$file && \
     echo '   follow symlinks = yes' >>$file && \
     echo '   load printers = no' >>$file && \
@@ -39,6 +38,8 @@ RUN apk --no-cache --no-progress upgrade && \
     rm -rf /tmp/*
 
 COPY samba.sh /usr/bin/
+
+RUN dos2unix /usr/bin/samba.sh
 
 EXPOSE 137/udp 138/udp 139 445
 
