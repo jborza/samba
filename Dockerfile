@@ -30,9 +30,6 @@ RUN apk --no-cache --no-progress upgrade && \
     echo '   disable spoolss = yes' >>$file && \
     echo '   socket options = TCP_NODELAY' >>$file && \
     echo '   strict locking = no' >>$file && \
-    echo '   vfs objects = recycle' >>$file && \
-    echo '   recycle:keeptree = yes' >>$file && \
-    echo '   recycle:versions = yes' >>$file && \
     echo '   min protocol = SMB2' >>$file && \
     echo '' >>$file && \
     rm -rf /tmp/*
