@@ -2,9 +2,9 @@
 
 ## Why this fork & credits
 
-I wanted to be able to run this Samba container with a bind volume under Windows, and it seems we can't change the permissions to achieve a read/write share ([see this issue](https://github.com/docker/for-win/issues/497)).
+I wanted to be able to run this Samba container with a bind volume under Windows, and it seems we can't change the permissions to achieve a read/write share ([see this issue](https://github.com/docker/for-win/issues/497)). The intended usage is to serve as an embedded Samba server for integration tests.
 
-`smbuser` is replaced with root, everything is still the same as in the great original [dperson/samba](https://github.com/dperson/samba) container. I would strongly suggest to give the original image a try: he is doing a good job there!
+`smbuser` is replaced with root, permissions for created files/directories are set to 777 (read/write for all), everything is still the same as in the great original [dperson/samba](https://github.com/dperson/samba) container. I would strongly suggest to give the original image a try: he is doing a good job there!
 
 # Samba
 
